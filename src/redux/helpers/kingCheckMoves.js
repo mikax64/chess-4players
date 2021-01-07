@@ -15,14 +15,14 @@ export const kingCheckMoves = (pieces, colorToCheck) => {
         const newPieceList = JSON.parse(JSON.stringify(pieces));
 
         const objIndex = newPieceList.findIndex(
-          piece => piece.name === pieceName
+          (piece) => piece.name === pieceName
         );
 
         newPieceList[objIndex].currentSquare = moves[j];
         newPieceList[objIndex].hasMoved = true;
 
         const pieceToRemoveIndex = newPieceList.findIndex(
-          piece =>
+          (piece) =>
             piece.currentSquare === newPieceList[objIndex].currentSquare &&
             piece.name !== pieceName
         );
@@ -39,7 +39,7 @@ export const kingCheckMoves = (pieces, colorToCheck) => {
         }
         if (kingCheck(newPieceList, colorToCheck) === false) {
           const pieceExist = movesPieces.findIndex(
-            piece => piece.pieceName === pieceName
+            (piece) => piece.pieceName === pieceName
           );
 
           if (pieceExist > -1) {
@@ -47,7 +47,7 @@ export const kingCheckMoves = (pieces, colorToCheck) => {
           } else {
             movesPieces.push({
               pieceName: pieceName,
-              movePossible: [moves[j]]
+              movePossible: [moves[j]],
             });
           }
         }

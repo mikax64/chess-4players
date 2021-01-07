@@ -5,18 +5,18 @@ import {
   updatePiece,
   removePiece,
   promotionPiece,
-  displayMovePossible
+  displayMovePossible,
 } from "../redux/actions/pieceActions";
 import {
   changePlayerTurn,
-  updateGlobalHistoric
+  updateGlobalHistoric,
 } from "../redux/actions/gameActions";
 
 class PieceContainer extends Component {
   constructor(props) {
     super(props);
     const {
-      data: { xPosition, yPosition }
+      data: { xPosition, yPosition },
     } = props;
 
     this.state = {
@@ -24,33 +24,33 @@ class PieceContainer extends Component {
       styleLeft: null,
       styleEvent: "initial",
       pieceDragged: null,
-      isDragged: false
+      isDragged: false,
     };
 
     //this.pieceRef = React.createRef();
   }
 
-  onStartDrag = e => {
+  onStartDrag = (e) => {
     const {
       refParent,
       pieces,
       data: { name },
-      displayMovePossible
+      displayMovePossible,
     } = this.props;
     const sizeSquare = e.target.offsetWidth / 2;
-    const moves = pieces.filter(piece => piece.name === name)[0].movePossible;
+    const moves = pieces.filter((piece) => piece.name === name)[0].movePossible;
 
     this.setState({
       styleTop: e.clientY - refParent.current.offsetTop - sizeSquare,
       styleLeft: e.clientX - refParent.current.offsetLeft - sizeSquare,
       styleEvent: "none", // to get the target mouseUp on Square,
       pieceDragged: e.target,
-      isDragged: true
+      isDragged: true,
     });
 
     displayMovePossible(moves);
   };
-  onStopDrag = e => {
+  onStopDrag = (e) => {
     const {
       updatePiece,
       removePiece,
@@ -59,14 +59,14 @@ class PieceContainer extends Component {
       pieces,
       displayMovePossible,
       game,
-      data: { name, pieceColor, type, historic }
+      data: { name, pieceColor, type, historic },
     } = this.props;
 
     const { pieceDragged } = this.state;
     displayMovePossible([""]);
 
     let targetSquare;
-    const movePossible = pieces.filter(piece => piece.name === name)[0]
+    const movePossible = pieces.filter((piece) => piece.name === name)[0]
       .movePossible;
 
     if (e.target.getAttribute("data-name") !== null) {
@@ -74,7 +74,7 @@ class PieceContainer extends Component {
     }
     if (e.target.getAttribute("data-piece") !== null) {
       const target = e.target.getAttribute("data-piece");
-      const piece = pieces.filter(piece => piece.name === target)[0];
+      const piece = pieces.filter((piece) => piece.name === target)[0];
       const indexPiece = pieces.indexOf(piece);
       targetSquare = piece.currentSquare;
       if (
@@ -89,10 +89,11 @@ class PieceContainer extends Component {
       this.setState(
         {
           styleEvent: "initial",
-          isDragged: false
+          isDragged: false,
         },
         () => {
           changePlayerTurn();
+          console.log("targetSquare", targetSquare);
           updatePiece(name, targetSquare);
           updateGlobalHistoric(pieceDragged.getAttribute("data-name"));
 
@@ -110,7 +111,7 @@ class PieceContainer extends Component {
           (piece === "pawn" && parseInt(targetSquare[1]) === 8) ||
           (piece === "pawn" && parseInt(targetSquare[1]) === 1)
         ) {
-          const numberOfQueens = pieces.filter(piece => {
+          const numberOfQueens = pieces.filter((piece) => {
             return piece.type === "queen" && piece.pieceColor === pieceColor;
           });
 
@@ -124,8 +125,9 @@ class PieceContainer extends Component {
       function handleCastling() {
         const piece = pieceDragged.getAttribute("data-piece").split("_")[0];
         const pieceFullName = pieceDragged.getAttribute("data-piece");
-        const hasMoved = pieces.filter(piece => piece.name === pieceFullName)[0]
-          .hasMoved;
+        const hasMoved = pieces.filter(
+          (piece) => piece.name === pieceFullName
+        )[0].hasMoved;
 
         if (!hasMoved && piece === "king" && targetSquare === "g1") {
           updatePiece("rook_2_white", "f1");
@@ -155,7 +157,7 @@ class PieceContainer extends Component {
 
           if (lastSquareX !== currentSquareX) {
             const indexTarget = pieces.findIndex(
-              piece => piece.currentSquare === currentSquareX + lastSquareY
+              (piece) => piece.currentSquare === currentSquareX + lastSquareY
             );
 
             removePiece(indexTarget);
@@ -165,7 +167,7 @@ class PieceContainer extends Component {
     } else {
       this.setState({
         styleEvent: "initial",
-        isDragged: false
+        isDragged: false,
       });
     }
   };
@@ -173,12 +175,12 @@ class PieceContainer extends Component {
   render() {
     const {
       refName,
-      data: { name }
+      data: { name },
     } = this.props;
 
     const { styleEvent, styleTop, styleLeft, isDragged } = this.state;
     const {
-      data: { xPosition, yPosition, type, pieceColor }
+      data: { xPosition, yPosition, type, pieceColor },
     } = this.props;
 
     const styles = {
@@ -186,7 +188,7 @@ class PieceContainer extends Component {
       top: yPosition + "px",
       left: xPosition + "px",
       pointerEvents: styleEvent,
-      zIndex: 1
+      zIndex: 1,
     };
 
     if (isDragged) {
@@ -215,25 +217,25 @@ class PieceContainer extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     board: state.board,
     pieces: state.pieces,
-    game: state.game
+    game: state.game,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     updatePiece: (pieceName, newPosition) =>
       dispatch(updatePiece(pieceName, newPosition)),
-    removePiece: indexPiece => dispatch(removePiece(indexPiece)),
+    removePiece: (indexPiece) => dispatch(removePiece(indexPiece)),
     promotionPiece: (pieceName, endName) =>
       dispatch(promotionPiece(pieceName, endName)),
     changePlayerTurn: () => dispatch(changePlayerTurn()),
-    updateGlobalHistoric: pieceDragged =>
+    updateGlobalHistoric: (pieceDragged) =>
       dispatch(updateGlobalHistoric(pieceDragged)),
-    displayMovePossible: moves => dispatch(displayMovePossible(moves))
+    displayMovePossible: (moves) => dispatch(displayMovePossible(moves)),
   };
 };
 

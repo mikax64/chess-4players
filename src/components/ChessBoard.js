@@ -36,13 +36,6 @@ class ChessBoard extends Component {
     this.setState({
       chessIsMount: true,
     });
-
-    setTimeout(() => {
-      updatePiece("pawn_6_white", "f4");
-    }, 1000);
-    setTimeout(() => {
-      updatePiece("bishop_1_white", "e5");
-    }, 2000);
   }
   componentDidUpdate() {}
 

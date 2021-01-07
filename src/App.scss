@@ -11,7 +11,7 @@ body {
   border: 8px solid #3c407d;
 }
 .square {
-  flex: 0 0 12.5%;
+  flex: 0 0 10%;
   color: white;
   font-weight: bold;
   position: relative;
@@ -67,13 +67,12 @@ body {
 
 .piece {
   background-size: contain;
-  width: 12.5%;
-  height: 12.5%;
+  width: 10%;
+  height: 10%;
   padding: 30px 5px 0 5px;
   color: #fff;
   word-break: break-all;
   box-sizing: border-box;
-  transition: all 500ms;
   cursor: pointer;
 
   &.pawn-black {

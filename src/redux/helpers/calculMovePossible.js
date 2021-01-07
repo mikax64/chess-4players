@@ -1,8 +1,8 @@
 export const calculMovePossible = (pieceList, piece) => {
-  const axeX = "abcdefgh";
+  const axeX = "abcdefghij";
   const pieceName = piece.name.split("_")[0];
 
-  const pieceAxeY = Number(piece.currentSquare.charAt(1));
+  const pieceAxeY = Number(piece.currentSquare.substr(1));
   const pieceAxeX = axeX.indexOf(piece.currentSquare.charAt(0)) + 1;
 
   const pieceColor = piece.pieceColor;
@@ -22,9 +22,9 @@ export const calculMovePossible = (pieceList, piece) => {
     if (
       type === false &&
       squareX > 0 &&
-      squareX < 9 &&
+      squareX < 11 &&
       squareY > 0 &&
-      squareY < 9 &&
+      squareY < 11 &&
       (isEmptySquare(squareX, squareY) || isOpponent(squareX, squareY))
     ) {
       movePossible.push(squareToAdd);
@@ -37,9 +37,9 @@ export const calculMovePossible = (pieceList, piece) => {
 
     if (
       squareX > 0 &&
-      squareX < 9 &&
+      squareX < 11 &&
       squareY > 0 &&
-      squareY < 9 &&
+      squareY < 11 &&
       (isEmptySquare(squareX, squareY) || isOpponent(squareX, squareY))
     ) {
       movePossible.push(squareToAdd);
@@ -67,14 +67,14 @@ export const calculMovePossible = (pieceList, piece) => {
       let isEnPassant = false;
 
       if (pieceColor === "white") {
-        if (pieceAxeY < 8) {
+        if (pieceAxeY < 10) {
           addMovePawn(moveX, moveY + 1, isDiagonal, isEnPassant);
-          if (pieceAxeX < 8 && isOpponent(moveX + 1, moveY + 1)) {
+          if (pieceAxeX < 10 && isOpponent(moveX + 1, moveY + 1)) {
             isDiagonal = true;
             addMovePawn(moveX + 1, moveY + 1, isDiagonal, isEnPassant);
           }
           if (
-            pieceAxeX < 8 &&
+            pieceAxeX < 10 &&
             pieceAxeY === 5 &&
             isOpponentEnPassant(moveX + 1, moveY)
           ) {
@@ -100,13 +100,13 @@ export const calculMovePossible = (pieceList, piece) => {
       } else {
         if (pieceAxeY > 1) {
           addMovePawn(moveX, moveY - 1, isDiagonal);
-          if (pieceAxeX < 8 && isOpponent(moveX + 1, moveY - 1)) {
+          if (pieceAxeX < 10 && isOpponent(moveX + 1, moveY - 1)) {
             isDiagonal = true;
             addMovePawn(moveX + 1, moveY - 1, isDiagonal);
           }
 
           if (
-            pieceAxeX < 8 &&
+            pieceAxeX < 10 &&
             pieceAxeY === 4 &&
             isOpponentEnPassant(moveX + 1, moveY)
           ) {
@@ -130,26 +130,6 @@ export const calculMovePossible = (pieceList, piece) => {
           }
         }
       }
-
-      // if (pieceColor === "white") {
-      //   if (pieceAxeX > 1 && pieceAxeX < 8 && pieceAxeY < 8) {
-      //     addMove(decrease(moveX), increase(moveY));
-      //     addMove(increase(moveX), increase(moveY));
-      //   } else if (pieceAxeX === 1 && pieceAxeY < 8) {
-      //     addMove(increase(moveX), increase(moveY));
-      //   } else if (pieceAxeX === 8 && pieceAxeY < 8) {
-      //     addMove(decrease(moveX), increase(moveY));
-      //   }
-      // } else {
-      //   if (pieceAxeX > 1 && pieceAxeX < 8 && pieceAxeY > 1) {
-      //     addMove(decrease(moveX), decrease(moveY));
-      //     addMove(increase(moveX), decrease(moveY));
-      //   } else if (pieceAxeX === 1 && pieceAxeY > 1) {
-      //     addMove(increase(moveX), decrease(moveY));
-      //   } else if (pieceAxeX === 8 && pieceAxeY > 1) {
-      //     addMove(decrease(moveX), decrease(moveY));
-      //   }
-      // }
 
       return movePossible;
     }
@@ -267,9 +247,9 @@ export const calculMovePossible = (pieceList, piece) => {
 
     while (
       moveX > 0 &&
-      moveX < 9 &&
+      moveX < 11 &&
       moveY > 0 &&
-      moveY < 9 &&
+      moveY < 11 &&
       isEmptySquare(moveX, moveY)
     ) {
       addMove(moveX, moveY);
@@ -285,7 +265,7 @@ export const calculMovePossible = (pieceList, piece) => {
     const square = letter + squareY;
 
     const squareToCheck = pieceList.filter(
-      piece => piece.currentSquare === square
+      (piece) => piece.currentSquare === square
     );
 
     return squareToCheck.length === 0 ? true : false;
@@ -296,7 +276,7 @@ export const calculMovePossible = (pieceList, piece) => {
     const square = letter + squareY;
 
     const squareToCheck = pieceList.filter(
-      piece => piece.currentSquare === square
+      (piece) => piece.currentSquare === square
     );
 
     if (squareToCheck[0] && squareToCheck[0].pieceColor !== pieceColor) {
@@ -309,7 +289,7 @@ export const calculMovePossible = (pieceList, piece) => {
     const square = letter + squareY;
 
     const squareToCheck = pieceList.filter(
-      piece => piece.currentSquare === square
+      (piece) => piece.currentSquare === square
     );
 
     if (

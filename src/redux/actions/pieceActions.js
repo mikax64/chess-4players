@@ -5,25 +5,25 @@ import { calculCastling } from "./../helpers/calculCastling";
 
 export const calculMoves = () => {
   return {
-    type: "CALCUL_MOVES"
+    type: "CALCUL_MOVES",
   };
 };
-export const resetMoves = color => {
+export const resetMoves = (color) => {
   return {
     type: "RESET_MOVES",
-    payload: color
+    payload: color,
   };
 };
 
 export const updateHistoric = () => {
   return {
-    type: "UPDATE_HISTORIC"
+    type: "UPDATE_HISTORIC",
   };
 };
 
 export const updateRelativeHistoric = () => {
   return {
-    type: "UPDATE_RELATIVE_HISTORIC"
+    type: "UPDATE_RELATIVE_HISTORIC",
   };
 };
 
@@ -31,21 +31,21 @@ export const updatePiecePosition = (pieceName, newPosition) => {
   return {
     type: "UPDATE_POSITION_PIECE",
     payload: pieceName,
-    meta: newPosition
+    meta: newPosition,
   };
 };
 
-export const removePiece = indexPiece => {
+export const removePiece = (indexPiece) => {
   return {
     type: "REMOVE_PIECE",
-    payload: indexPiece
+    payload: indexPiece,
   };
 };
 export const promotionPiece = (pieceName, endName) => {
   return {
     type: "PROMOTION_PIECE",
     payload: pieceName,
-    meta: endName
+    meta: endName,
   };
 };
 
@@ -53,28 +53,28 @@ export const updateEnPassant = (pieceName, target) => {
   return {
     type: "UPDATE_EN_PASSANT",
     payload: pieceName,
-    meta: target
+    meta: target,
   };
 };
 
-export const kingCheckUpdate = color => {
+export const kingCheckUpdate = (color) => {
   return {
     type: "KING_CHECK_UPDATE",
-    payload: color
+    payload: color,
   };
 };
 
-export const kingCheckRemove = color => {
+export const kingCheckRemove = (color) => {
   return {
     type: "KING_CHECK_REMOVE",
-    payload: color
+    payload: color,
   };
 };
 
-export const updateKingCheckMoves = piece => {
+export const updateKingCheckMoves = (piece) => {
   return {
     type: "UPDTATE_KING_CHECK_MOVES",
-    payload: piece
+    payload: piece,
   };
 };
 
@@ -83,20 +83,20 @@ export const updateCastling = (piece, square, add) => {
     type: "UPDTATE_CASTLING",
     payload: piece,
     meta: square,
-    add
+    add,
   };
 };
 
-export const displayMovePossible = moves => {
+export const displayMovePossible = (moves) => {
   return {
     type: "DISPLAY_MOVE_POSSIBLE",
-    payload: moves
+    payload: moves,
   };
 };
 
 export const updateCheckMate = () => {
   return {
-    type: "UPDATE_CHECKMATE"
+    type: "UPDATE_CHECKMATE",
   };
 };
 
@@ -141,7 +141,7 @@ export const updatePiece = (pieceName, newPosition) => {
       const castling = (type, kingColor) => {
         if (calculCastling(type, pieces, kingColor) !== false) {
           const piece = pieces.filter(
-            piece => piece.name === `king_1_${kingColor}`
+            (piece) => piece.name === `king_1_${kingColor}`
           )[0];
           dispatch(
             updateCastling(piece, calculCastling(type, pieces, kingColor), true)

@@ -1,7 +1,7 @@
 import { pieceName, squarePieceInit } from "./pieceAndSquare";
 import { calculSquarePosition } from "../redux/helpers/calculSquarePosition";
 
-const axeX = ["a", "b", "c", "d", "e", "f", "g", "h"];
+const axeX = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
 const squareNames = [];
 export const boardList = [];
 export const pieceList = [];
@@ -12,8 +12,8 @@ initPiece();
 calculPiecePosition();
 
 function createBoard() {
-  for (let i = 1; i < 9; i++) {
-    for (let j = 1; j < 9; j++) {
+  for (let i = 1; i < 11; i++) {
+    for (let j = 1; j < 11; j++) {
       squareNames.push(axeX[j - 1] + i);
     }
   }
@@ -34,7 +34,7 @@ function createBoard() {
       squareColor: i % 2 ? firstColor : secondColor,
       currentPiece: null,
       xPosition: null,
-      yPosition: null
+      yPosition: null,
     });
   }
 }
@@ -42,10 +42,12 @@ function createBoard() {
 function initPiece() {
   boardList.reverse();
 
+  console.log("pieceName", pieceName);
+
   for (let i = 0; i < pieceName.length; i++) {
     const splitPiece = pieceName[i].split("_");
 
-    boardList.forEach(el => {
+    boardList.forEach((el) => {
       if (el.squareName === squarePieceInit[i]) {
         el.currentPiece = pieceName[i];
       }
@@ -62,13 +64,13 @@ function initPiece() {
       hasMoved: false,
       xPosition: null,
       yPosition: null,
-      index: i
+      index: i,
     });
   }
 }
 
 function calculPiecePosition() {
-  pieceList.map(piece => {
+  pieceList.map((piece) => {
     piece.xPosition = calculSquarePosition(piece.currentSquare).xPosition;
     piece.yPosition = calculSquarePosition(piece.currentSquare).yPosition;
     return piece;
