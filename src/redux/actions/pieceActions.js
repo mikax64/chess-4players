@@ -1,6 +1,3 @@
-import { kingCheck } from "../helpers/kingCheck";
-import { kingCheckMoves } from "../helpers/kingCheckMoves";
-
 import { calculCastling } from "./../helpers/calculCastling";
 
 export const calculMoves = () => {
@@ -49,35 +46,6 @@ export const promotionPiece = (pieceName, endName) => {
   };
 };
 
-export const updateEnPassant = (pieceName, target) => {
-  return {
-    type: "UPDATE_EN_PASSANT",
-    payload: pieceName,
-    meta: target,
-  };
-};
-
-export const kingCheckUpdate = (color) => {
-  return {
-    type: "KING_CHECK_UPDATE",
-    payload: color,
-  };
-};
-
-export const kingCheckRemove = (color) => {
-  return {
-    type: "KING_CHECK_REMOVE",
-    payload: color,
-  };
-};
-
-export const updateKingCheckMoves = (piece) => {
-  return {
-    type: "UPDTATE_KING_CHECK_MOVES",
-    payload: piece,
-  };
-};
-
 export const updateCastling = (piece, square, add) => {
   return {
     type: "UPDTATE_CASTLING",
@@ -94,12 +62,6 @@ export const displayMovePossible = (moves) => {
   };
 };
 
-export const updateCheckMate = () => {
-  return {
-    type: "UPDATE_CHECKMATE",
-  };
-};
-
 export const updatePiece = (pieceName, newPosition) => {
   return (dispatch, getState) => {
     dispatch(updatePiecePosition(pieceName, newPosition));
@@ -108,34 +70,6 @@ export const updatePiece = (pieceName, newPosition) => {
     dispatch(calculMoves());
 
     const { pieces, game } = getState();
-    if (kingCheck(pieces, "white") === true) {
-      dispatch(kingCheckUpdate("white"));
-    } else {
-      if (kingCheck(pieces, "black") === true) {
-        dispatch(kingCheckUpdate("black"));
-      } else {
-        dispatch(kingCheckRemove());
-      }
-    }
-
-    kingCheckMoves(pieces, game.playerTurn);
-
-    if (isCheckMate()) {
-      dispatch(updateCheckMate());
-    }
-    checkCastling();
-
-    function isCheckMate() {
-      const { pieces, game } = getState();
-      for (let i = 0; i < pieces.length; i++) {
-        if (pieces[i].pieceColor === game.playerTurn) {
-          const moves = pieces[i].movePossible;
-
-          if (moves.length > 0) return false;
-        }
-      }
-      return true;
-    }
 
     function checkCastling() {
       const castling = (type, kingColor) => {

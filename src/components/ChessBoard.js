@@ -22,10 +22,10 @@ class ChessBoard extends Component {
   }
 
   onMouseMove = (e) => {
-    e.stopPropagation();
-    const mouseXPosition = e.clientX - this.boardRef.current.offsetLeft;
-    const mouseYPosition = e.clientY - this.boardRef.current.offsetTop;
-    this.setState({ x: mouseXPosition, y: mouseYPosition });
+    // e.stopPropagation();
+    // const mouseXPosition = e.clientX - this.boardRef.current.offsetLeft;
+    // const mouseYPosition = e.clientY - this.boardRef.current.offsetTop;
+    // this.setState({ x: mouseXPosition, y: mouseYPosition });
   };
 
   componentDidMount() {
@@ -56,8 +56,6 @@ class ChessBoard extends Component {
         className="chessBoard"
         ref={this.boardRef}
       >
-        {game.isCheckMate && <div className="checkmate-box">Checkmate! </div>}
-
         {board.map((el) => (
           <Square key={el.squareName} data={el}></Square>
         ))}
@@ -66,7 +64,7 @@ class ChessBoard extends Component {
           pieces.map((el) => (
             <PieceContainer
               refParent={this.boardRef}
-              key={el.index}
+              key={el.name}
               data={el}
             ></PieceContainer>
           ))}

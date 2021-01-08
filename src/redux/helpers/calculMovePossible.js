@@ -2,10 +2,10 @@ export const calculMovePossible = (pieceList, piece) => {
   const axeX = "abcdefghij";
   const pieceName = piece.name.split("_")[0];
 
-  const pieceAxeY = Number(piece.currentSquare.substr(1));
   const pieceAxeX = axeX.indexOf(piece.currentSquare.charAt(0)) + 1;
+  const pieceAxeY = Number(piece.currentSquare.substr(1));
 
-  const pieceColor = piece.pieceColor;
+  const playerNumber = piece.playerNumber;
   const movePossible = [];
 
   const addMove = (squareX, squareY) => {
@@ -46,14 +46,13 @@ export const calculMovePossible = (pieceList, piece) => {
     }
   };
 
-  const addMovePawn = (squareX, squareY, isDiagonal, isEnPassant) => {
+  const addMovePawn = (squareX, squareY, isDiagonal) => {
     const letter = axeX.charAt(squareX - 1);
     const squareToAdd = letter + squareY;
 
     if (
       isEmptySquare(squareX, squareY) ||
-      (isOpponent(squareX, squareY) && isDiagonal) ||
-      (isEnPassant && isEmptySquare(squareX, squareY))
+      (isOpponent(squareX, squareY) && isDiagonal)
     ) {
       movePossible.push(squareToAdd);
     }
@@ -64,40 +63,50 @@ export const calculMovePossible = (pieceList, piece) => {
       let moveX = pieceAxeX;
       let moveY = pieceAxeY;
       let isDiagonal = false;
-      let isEnPassant = false;
 
-      if (pieceColor === "white") {
+      if (playerNumber === "one") {
         if (pieceAxeY < 10) {
-          addMovePawn(moveX, moveY + 1, isDiagonal, isEnPassant);
+          addMovePawn(moveX, moveY + 1, isDiagonal);
           if (pieceAxeX < 10 && isOpponent(moveX + 1, moveY + 1)) {
             isDiagonal = true;
-            addMovePawn(moveX + 1, moveY + 1, isDiagonal, isEnPassant);
+            addMovePawn(moveX + 1, moveY + 1, isDiagonal);
           }
-          if (
-            pieceAxeX < 10 &&
-            pieceAxeY === 5 &&
-            isOpponentEnPassant(moveX + 1, moveY)
-          ) {
-            isEnPassant = true;
-            addMovePawn(moveX + 1, moveY + 1, isDiagonal, isEnPassant);
+          if (pieceAxeX < 10 && pieceAxeY === 5) {
+            addMovePawn(moveX + 1, moveY + 1, isDiagonal);
           }
           if (pieceAxeX > 1 && isOpponent(moveX - 1, moveY + 1)) {
             isDiagonal = true;
-            addMovePawn(moveX - 1, moveY + 1, isDiagonal, isEnPassant);
+            addMovePawn(moveX - 1, moveY + 1, isDiagonal);
           }
-          if (
-            pieceAxeX > 1 &&
-            pieceAxeY === 5 &&
-            isOpponentEnPassant(moveX - 1, moveY)
-          ) {
-            isEnPassant = true;
-            addMovePawn(moveX - 1, moveY + 1, isDiagonal, isEnPassant);
+          if (pieceAxeX > 1 && pieceAxeY === 5) {
+            addMovePawn(moveX - 1, moveY + 1, isDiagonal);
           }
           if (!piece.hasMoved && isEmptySquare(moveX, moveY + 1)) {
-            addMovePawn(moveX, moveY + 2, isDiagonal, isEnPassant);
+            addMovePawn(moveX, moveY + 2, isDiagonal);
           }
         }
-      } else {
+      } else if (playerNumber === "two") {
+        if (pieceAxeX < 10) {
+          addMovePawn(moveX + 1, moveY, isDiagonal);
+          if (pieceAxeY < 10 && isOpponent(moveX + 1, moveY + 1)) {
+            isDiagonal = true;
+            addMovePawn(moveX + 1, moveY + 1, isDiagonal);
+          }
+          if (pieceAxeY < 10 && pieceAxeX === 5) {
+            addMovePawn(moveX + 1, moveY + 1, isDiagonal);
+          }
+          if (pieceAxeY > 1 && isOpponent(moveX + 1, moveY - 1)) {
+            isDiagonal = true;
+            addMovePawn(moveX + 1, moveY - 1, isDiagonal);
+          }
+          if (pieceAxeY > 1 && pieceAxeX === 5) {
+            addMovePawn(moveX + 1, moveY - 1, isDiagonal);
+          }
+          if (!piece.hasMoved && isEmptySquare(moveX + 1, moveY)) {
+            addMovePawn(moveX + 2, moveY, isDiagonal);
+          }
+        }
+      } else if (playerNumber === "three") {
         if (pieceAxeY > 1) {
           addMovePawn(moveX, moveY - 1, isDiagonal);
           if (pieceAxeX < 10 && isOpponent(moveX + 1, moveY - 1)) {
@@ -105,28 +114,40 @@ export const calculMovePossible = (pieceList, piece) => {
             addMovePawn(moveX + 1, moveY - 1, isDiagonal);
           }
 
-          if (
-            pieceAxeX < 10 &&
-            pieceAxeY === 4 &&
-            isOpponentEnPassant(moveX + 1, moveY)
-          ) {
-            isEnPassant = true;
-            addMovePawn(moveX + 1, moveY - 1, isDiagonal, isEnPassant);
+          if (pieceAxeX < 10 && pieceAxeY === 4) {
+            addMovePawn(moveX + 1, moveY - 1, isDiagonal);
           }
           if (pieceAxeX > 1 && isOpponent(moveX - 1, moveY - 1)) {
             isDiagonal = true;
             addMovePawn(moveX - 1, moveY - 1, isDiagonal);
           }
-          if (
-            pieceAxeX > 1 &&
-            pieceAxeY === 4 &&
-            isOpponentEnPassant(moveX - 1, moveY)
-          ) {
-            isEnPassant = true;
-            addMovePawn(moveX - 1, moveY - 1, isDiagonal, isEnPassant);
+          if (pieceAxeX > 1 && pieceAxeY === 4) {
+            addMovePawn(moveX - 1, moveY - 1, isDiagonal);
           }
           if (!piece.hasMoved && isEmptySquare(moveX, moveY - 1)) {
             addMovePawn(moveX, moveY - 2, isDiagonal);
+          }
+        }
+      } else if (playerNumber === "four") {
+        if (pieceAxeX > 1) {
+          addMovePawn(moveX - 1, moveY, isDiagonal);
+          if (pieceAxeY < 10 && isOpponent(moveX - 1, moveY + 1)) {
+            isDiagonal = true;
+            addMovePawn(moveX - 1, moveY + 1, isDiagonal);
+          }
+
+          if (pieceAxeY < 10 && pieceAxeX === 4) {
+            addMovePawn(moveX - 1, moveY + 1, isDiagonal);
+          }
+          if (pieceAxeY > 1 && isOpponent(moveX - 1, moveY - 1)) {
+            isDiagonal = true;
+            addMovePawn(moveX - 1, moveY - 1, isDiagonal);
+          }
+          if (pieceAxeY > 1 && pieceAxeX === 4) {
+            addMovePawn(moveX - 1, moveY - 1, isDiagonal);
+          }
+          if (!piece.hasMoved && isEmptySquare(moveX - 1, moveY)) {
+            addMovePawn(moveX - 2, moveY, isDiagonal);
           }
         }
       }
@@ -279,27 +300,7 @@ export const calculMovePossible = (pieceList, piece) => {
       (piece) => piece.currentSquare === square
     );
 
-    if (squareToCheck[0] && squareToCheck[0].pieceColor !== pieceColor) {
-      return true;
-    }
-  }
-
-  function isOpponentEnPassant(squareX, squareY, pieceColor) {
-    const letter = axeX.charAt(squareX - 1);
-    const square = letter + squareY;
-
-    const squareToCheck = pieceList.filter(
-      (piece) => piece.currentSquare === square
-    );
-
-    if (
-      squareToCheck[0] &&
-      squareToCheck[0].type === "pawn" &&
-      squareToCheck[0].pieceColor !== pieceColor &&
-      squareToCheck[0].relativeHistoric[
-        squareToCheck[0].relativeHistoric.length - 1
-      ] === square
-    ) {
+    if (squareToCheck[0] && squareToCheck[0].playerNumber !== playerNumber) {
       return true;
     }
   }

@@ -1,14 +1,14 @@
-export const calculCastling = (type, pieceList, pieceColor) => {
-  const opponentColor = pieceColor === "white" ? "black" : "white";
+export const calculCastling = (type, pieceList, playerNumber) => {
+  const opponentColor = playerNumber === "one" ? "two" : "one";
   const king = pieceList.filter(
-    piece => piece.name === `king_1_${pieceColor}`
+    (piece) => piece.name === `king_1_${playerNumber}`
   )[0];
 
   const rookOne = pieceList.filter(
-    piece => piece.name === `rook_1_${pieceColor}`
+    (piece) => piece.name === `rook_1_${playerNumber}`
   )[0];
   const rookTwo = pieceList.filter(
-    piece => piece.name === `rook_2_${pieceColor}`
+    (piece) => piece.name === `rook_2_${playerNumber}`
   )[0];
 
   const isEmptySquare = (squareX, squareY) => {
@@ -17,7 +17,7 @@ export const calculCastling = (type, pieceList, pieceColor) => {
     const square = letter + squareY;
 
     const squareToCheck = pieceList.filter(
-      piece => piece.currentSquare === square
+      (piece) => piece.currentSquare === square
     );
 
     return squareToCheck.length === 0 ? true : false;
@@ -31,7 +31,7 @@ export const calculCastling = (type, pieceList, pieceColor) => {
   ) => {
     for (let i = 0; i < pieceList.length; i++) {
       if (
-        pieceList[i].pieceColor === opponentColor &&
+        pieceList[i].playerNumber === opponentColor &&
         (pieceList[i].movePossible.includes(square1) ||
           pieceList[i].movePossible.includes(square2) ||
           pieceList[i].movePossible.includes(square3) ||
@@ -46,7 +46,7 @@ export const calculCastling = (type, pieceList, pieceColor) => {
 
   if (
     type === "short" &&
-    pieceColor === "white" &&
+    playerNumber === "white" &&
     king.hasMoved === false &&
     rookTwo !== undefined &&
     rookTwo.hasMoved === false &&
@@ -58,7 +58,7 @@ export const calculCastling = (type, pieceList, pieceColor) => {
   }
   if (
     type === "long" &&
-    pieceColor === "white" &&
+    playerNumber === "white" &&
     king.hasMoved === false &&
     rookOne !== undefined &&
     rookOne.hasMoved === false &&
@@ -71,7 +71,7 @@ export const calculCastling = (type, pieceList, pieceColor) => {
   }
   if (
     type === "short" &&
-    pieceColor === "black" &&
+    playerNumber === "black" &&
     king.hasMoved === false &&
     rookTwo !== undefined &&
     rookTwo.hasMoved === false &&
@@ -83,7 +83,7 @@ export const calculCastling = (type, pieceList, pieceColor) => {
   }
   if (
     type === "long" &&
-    pieceColor === "black" &&
+    playerNumber === "black" &&
     king.hasMoved === false &&
     rookOne !== undefined &&
     rookOne.hasMoved === false &&

@@ -64,7 +64,7 @@ export const pieceReducer = (state = pieceList, action) => {
 
     case "RESET_MOVES": {
       return state.map((piece) => {
-        if (piece.pieceColor === action.payload)
+        if (piece.playerNumber === action.payload)
           return {
             ...piece,
             movePossible: [],

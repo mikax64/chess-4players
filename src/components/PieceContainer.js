@@ -59,7 +59,7 @@ class PieceContainer extends Component {
       pieces,
       displayMovePossible,
       game,
-      data: { name, pieceColor, type, historic },
+      data: { name, playerNumber, type, historic },
     } = this.props;
 
     const { pieceDragged } = this.state;
@@ -79,13 +79,16 @@ class PieceContainer extends Component {
       targetSquare = piece.currentSquare;
       if (
         movePossible.includes(targetSquare) &&
-        pieceColor === game.playerTurn
+        playerNumber === game.playerTurn
       ) {
         removePiece(indexPiece);
       }
     }
 
-    if (movePossible.includes(targetSquare) && pieceColor === game.playerTurn) {
+    if (
+      movePossible.includes(targetSquare) &&
+      playerNumber === game.playerTurn
+    ) {
       this.setState(
         {
           styleEvent: "initial",
@@ -93,11 +96,8 @@ class PieceContainer extends Component {
         },
         () => {
           changePlayerTurn();
-          console.log("targetSquare", targetSquare);
           updatePiece(name, targetSquare);
           updateGlobalHistoric(pieceDragged.getAttribute("data-name"));
-
-          removeEnPassant();
           handleCastling();
           handlePromotion();
         }
@@ -112,11 +112,13 @@ class PieceContainer extends Component {
           (piece === "pawn" && parseInt(targetSquare[1]) === 1)
         ) {
           const numberOfQueens = pieces.filter((piece) => {
-            return piece.type === "queen" && piece.pieceColor === pieceColor;
+            return (
+              piece.type === "queen" && piece.playerNumber === playerNumber
+            );
           });
 
           const newNumberQueen = numberOfQueens.length + 1;
-          const endName = `_${newNumberQueen}_${pieceColor}`;
+          const endName = `_${newNumberQueen}_${playerNumber}`;
 
           promotionPiece(pieceName, endName);
         }
@@ -142,28 +144,6 @@ class PieceContainer extends Component {
           updatePiece("rook_1_black", "c8");
         }
       }
-
-      function removeEnPassant() {
-        if (
-          type === "pawn" &&
-          e.target.getAttribute("data-name") !== null &&
-          historic.length > 0
-        ) {
-          const lastSquareX = historic[historic.length - 1].split("")[0];
-          const lastSquareY = historic[historic.length - 1].split("")[1];
-          const currentSquareX = e.target
-            .getAttribute("data-name")
-            .split("")[0];
-
-          if (lastSquareX !== currentSquareX) {
-            const indexTarget = pieces.findIndex(
-              (piece) => piece.currentSquare === currentSquareX + lastSquareY
-            );
-
-            removePiece(indexTarget);
-          }
-        }
-      }
     } else {
       this.setState({
         styleEvent: "initial",
@@ -180,7 +160,7 @@ class PieceContainer extends Component {
 
     const { styleEvent, styleTop, styleLeft, isDragged } = this.state;
     const {
-      data: { xPosition, yPosition, type, pieceColor },
+      data: { xPosition, yPosition, type, playerNumber },
     } = this.props;
 
     const styles = {
@@ -208,7 +188,7 @@ class PieceContainer extends Component {
       >
         <div
           ref={refName}
-          className={`piece ${type}-${pieceColor}`}
+          className={`piece ${type}-${playerNumber}`}
           style={styles}
           data-piece={name}
         ></div>

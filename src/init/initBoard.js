@@ -42,8 +42,6 @@ function createBoard() {
 function initPiece() {
   boardList.reverse();
 
-  console.log("pieceName", pieceName);
-
   for (let i = 0; i < pieceName.length; i++) {
     const splitPiece = pieceName[i].split("_");
 
@@ -56,7 +54,7 @@ function initPiece() {
     pieceList.push({
       name: pieceName[i],
       currentSquare: squarePieceInit[i],
-      pieceColor: splitPiece[2],
+      playerNumber: splitPiece[2],
       type: splitPiece[0],
       movePossible: [],
       historic: [squarePieceInit[i]],

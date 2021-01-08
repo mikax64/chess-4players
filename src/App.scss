@@ -75,46 +75,88 @@ body {
   box-sizing: border-box;
   cursor: pointer;
 
-  &.pawn-black {
+  &.pawn-one {
     background-image: url("./assets/pawn-black.svg");
     background-size: 85%;
     background-position: center;
     background-repeat: no-repeat;
   }
-  &.pawn-white {
+  &.pawn-two {
     background-image: url("./assets/pawn-white.svg");
     background-size: 85%;
     background-position: center;
     background-repeat: no-repeat;
   }
-  &.rook-black {
+  &.pawn-three {
+    background-image: url("./assets/pawn-black.svg");
+    background-size: 85%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  &.pawn-four {
+    background-image: url("./assets/pawn-white.svg");
+    background-size: 85%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  &.rook-one {
     background-image: url("./assets/rook-black.svg");
   }
-  &.rook-white {
+  &.rook-two {
     background-image: url("./assets/rook-white.svg");
   }
-  &.knight-black {
+  &.rook-three {
+    background-image: url("./assets/rook-black.svg");
+  }
+  &.rook-four {
+    background-image: url("./assets/rook-white.svg");
+  }
+  &.knight-one {
     background-image: url("./assets/knight-black.svg");
   }
-  &.knight-white {
+  &.knight-two {
     background-image: url("./assets/knight-white.svg");
   }
-  &.bishop-black {
+  &.knight-three {
+    background-image: url("./assets/knight-black.svg");
+  }
+  &.knight-four {
+    background-image: url("./assets/knight-white.svg");
+  }
+  &.bishop-one {
     background-image: url("./assets/bishop-black.svg");
   }
-  &.bishop-white {
+  &.bishop-two {
     background-image: url("./assets/bishop-white.svg");
   }
-  &.queen-black {
+  &.bishop-three {
+    background-image: url("./assets/bishop-black.svg");
+  }
+  &.bishop-four {
+    background-image: url("./assets/bishop-white.svg");
+  }
+  &.queen-one {
     background-image: url("./assets/queen-black.svg");
   }
-  &.queen-white {
+  &.queen-two {
     background-image: url("./assets/queen-white.svg");
   }
-  &.king-black {
+  &.queen-three {
+    background-image: url("./assets/queen-white.svg");
+  }
+  &.queen-four {
+    background-image: url("./assets/queen-white.svg");
+  }
+  &.king-one {
     background-image: url("./assets/king-black.svg");
   }
-  &.king-white {
+  &.king-two {
+    background-image: url("./assets/king-white.svg");
+  }
+  &.king-three {
+    background-image: url("./assets/king-black.svg");
+  }
+  &.king-four {
     background-image: url("./assets/king-white.svg");
   }
 }
