@@ -8,7 +8,6 @@ body {
   flex-direction: row-reverse;
   position: relative;
   margin: 50px auto;
-  border: 8px solid #3c407d;
 }
 .square {
   flex: 0 0 10%;
@@ -27,6 +26,10 @@ body {
     left: calc(50% - 14px);
     top: calc(50% - 14px);
     opacity: 0.4;
+  }
+
+  &.is-forbidden {
+    visibility: hidden;
   }
 
   &.is-black {
@@ -75,88 +78,45 @@ body {
   box-sizing: border-box;
   cursor: pointer;
 
-  &.pawn-one {
-    background-image: url("./assets/pawn-black.svg");
-    background-size: 85%;
-    background-position: center;
-    background-repeat: no-repeat;
+  &.two {
+    filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg)
+      saturate(700%) contrast(0.8);
   }
-  &.pawn-two {
+
+  &.three {
+    filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(50deg)
+      saturate(1000%) contrast(0.8);
+  }
+
+  &.four {
+    filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg)
+      saturate(600%) contrast(0.8);
+  }
+
+  &.pawn {
     background-image: url("./assets/pawn-white.svg");
     background-size: 85%;
     background-position: center;
     background-repeat: no-repeat;
   }
-  &.pawn-three {
-    background-image: url("./assets/pawn-black.svg");
-    background-size: 85%;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  &.pawn-four {
-    background-image: url("./assets/pawn-white.svg");
-    background-size: 85%;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  &.rook-one {
-    background-image: url("./assets/rook-black.svg");
-  }
-  &.rook-two {
+
+  &.rook {
     background-image: url("./assets/rook-white.svg");
   }
-  &.rook-three {
-    background-image: url("./assets/rook-black.svg");
-  }
-  &.rook-four {
-    background-image: url("./assets/rook-white.svg");
-  }
-  &.knight-one {
-    background-image: url("./assets/knight-black.svg");
-  }
-  &.knight-two {
+
+  &.knight {
     background-image: url("./assets/knight-white.svg");
   }
-  &.knight-three {
-    background-image: url("./assets/knight-black.svg");
-  }
-  &.knight-four {
-    background-image: url("./assets/knight-white.svg");
-  }
-  &.bishop-one {
-    background-image: url("./assets/bishop-black.svg");
-  }
-  &.bishop-two {
+
+  &.bishop {
     background-image: url("./assets/bishop-white.svg");
   }
-  &.bishop-three {
-    background-image: url("./assets/bishop-black.svg");
-  }
-  &.bishop-four {
-    background-image: url("./assets/bishop-white.svg");
-  }
-  &.queen-one {
-    background-image: url("./assets/queen-black.svg");
-  }
-  &.queen-two {
+
+  &.queen {
     background-image: url("./assets/queen-white.svg");
   }
-  &.queen-three {
-    background-image: url("./assets/queen-white.svg");
-  }
-  &.queen-four {
-    background-image: url("./assets/queen-white.svg");
-  }
-  &.king-one {
-    background-image: url("./assets/king-black.svg");
-  }
-  &.king-two {
-    background-image: url("./assets/king-white.svg");
-  }
-  &.king-three {
-    background-image: url("./assets/king-black.svg");
-  }
-  &.king-four {
+
+  &.king {
     background-image: url("./assets/king-white.svg");
   }
 }

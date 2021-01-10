@@ -12,5 +12,9 @@ function subscribeMessage(callback) {
     callback(msg);
   });
 }
+function subscribeTimer(cb) {
+  socket.on("timer", (timestamp) => cb(null, timestamp));
+  socket.emit("subscribeTimer", 1000);
+}
 
-export { sendMessage, subscribeMessage };
+export { sendMessage, subscribeMessage, subscribeTimer };

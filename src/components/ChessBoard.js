@@ -41,9 +41,10 @@ class ChessBoard extends Component {
 
   render() {
     const { board, pieces, game } = this.props;
-    const { chessIsMount, playerTurn } = this.state;
+    const { chessIsMount } = this.state;
     const sizeBoard = 600;
 
+    console.log("this.props CHESSBPOARD ", this.props);
     const styles = {
       width: sizeBoard + "px",
       height: sizeBoard + "px",
@@ -59,6 +60,8 @@ class ChessBoard extends Component {
         {board.map((el) => (
           <Square key={el.squareName} data={el}></Square>
         ))}
+
+        {game.playerWinner && <div>PLAYER {game.playerWinner} WINS!!!</div>}
 
         {chessIsMount &&
           pieces.map((el) => (

@@ -95,8 +95,9 @@ class PieceContainer extends Component {
           isDragged: false,
         },
         () => {
-          changePlayerTurn();
           updatePiece(name, targetSquare);
+          changePlayerTurn();
+
           updateGlobalHistoric(pieceDragged.getAttribute("data-name"));
           handleCastling();
           handlePromotion();
@@ -104,12 +105,21 @@ class PieceContainer extends Component {
       );
 
       function handlePromotion() {
+        const targetSquareY = targetSquare[1];
+        const axeX = "abcdefghij";
+        let targetX = axeX.indexOf(targetSquare.charAt(0)) + 1;
+        const targetSquareX = String(targetX).charAt(0);
+
         const pieceName = pieceDragged.getAttribute("data-piece");
         const piece = pieceName.split("_")[0];
 
         if (
-          (piece === "pawn" && parseInt(targetSquare[1]) === 8) ||
-          (piece === "pawn" && parseInt(targetSquare[1]) === 1)
+          (piece === "pawn" &&
+            parseInt(targetSquareY) === 1 &&
+            (game.playerTurn === "one" || game.playerTurn === "three")) ||
+          (piece === "pawn" &&
+            parseInt(targetSquareX) === 1 &&
+            (game.playerTurn === "two" || game.playerTurn === "four"))
         ) {
           const numberOfQueens = pieces.filter((piece) => {
             return (
@@ -188,7 +198,7 @@ class PieceContainer extends Component {
       >
         <div
           ref={refName}
-          className={`piece ${type}-${playerNumber}`}
+          className={`piece ${type} ${playerNumber}`}
           style={styles}
           data-piece={name}
         ></div>

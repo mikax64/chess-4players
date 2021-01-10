@@ -2,6 +2,40 @@ import { pieceName, squarePieceInit } from "./pieceAndSquare";
 import { calculSquarePosition } from "../redux/helpers/calculSquarePosition";
 
 const axeX = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
+export const forbiddenSquares = [
+  "a1",
+  "b1",
+  "c1",
+  "a2",
+  "b2",
+  "c2",
+  "a3",
+  "b3",
+  "a10",
+  "b10",
+  "c10",
+  "a9",
+  "b9",
+  "c9",
+  "a8",
+  "b8",
+  "h10",
+  "i10",
+  "j10",
+  "h9",
+  "i9",
+  "j9",
+  "i8",
+  "j8",
+  "i3",
+  "j3",
+  "h2",
+  "i2",
+  "j2",
+  "h1",
+  "i1",
+  "j1",
+];
 const squareNames = [];
 export const boardList = [];
 export const pieceList = [];
@@ -32,6 +66,7 @@ function createBoard() {
     boardList.push({
       squareName: squareNames[i],
       squareColor: i % 2 ? firstColor : secondColor,
+      isForbidden: forbiddenSquares.includes(squareNames[i]) ? true : false,
       currentPiece: null,
       xPosition: null,
       yPosition: null,

@@ -1,8 +1,14 @@
-export const getPlayerTurn = (current) => {
+export const getPlayerTurn = (current, pieces) => {
   const players = ["one", "two", "three", "four"];
-  const nbPlayers = players.length;
+  const remainingPlayers = [];
 
-  const indexCurrent = players.indexOf(current);
+  for (let i = 0; i < players.length; i++) {
+    const player = pieces.filter((obj) => obj.playerNumber === players[i]);
+    if (player.length > 0) remainingPlayers.push(players[i]);
+  }
+
+  const nbPlayers = remainingPlayers.length;
+  const indexCurrent = remainingPlayers.indexOf(current);
 
   let newIndex;
 
@@ -12,5 +18,5 @@ export const getPlayerTurn = (current) => {
     newIndex = indexCurrent + 1;
   }
 
-  return players[newIndex];
+  return remainingPlayers[newIndex];
 };

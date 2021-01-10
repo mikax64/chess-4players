@@ -1,3 +1,5 @@
+import { forbiddenSquares } from "../../init/initBoard";
+
 export const calculMovePossible = (pieceList, piece) => {
   const axeX = "abcdefghij";
   const pieceName = piece.name.split("_")[0];
@@ -71,14 +73,8 @@ export const calculMovePossible = (pieceList, piece) => {
             isDiagonal = true;
             addMovePawn(moveX + 1, moveY + 1, isDiagonal);
           }
-          if (pieceAxeX < 10 && pieceAxeY === 5) {
-            addMovePawn(moveX + 1, moveY + 1, isDiagonal);
-          }
           if (pieceAxeX > 1 && isOpponent(moveX - 1, moveY + 1)) {
             isDiagonal = true;
-            addMovePawn(moveX - 1, moveY + 1, isDiagonal);
-          }
-          if (pieceAxeX > 1 && pieceAxeY === 5) {
             addMovePawn(moveX - 1, moveY + 1, isDiagonal);
           }
           if (!piece.hasMoved && isEmptySquare(moveX, moveY + 1)) {
@@ -92,16 +88,12 @@ export const calculMovePossible = (pieceList, piece) => {
             isDiagonal = true;
             addMovePawn(moveX + 1, moveY + 1, isDiagonal);
           }
-          if (pieceAxeY < 10 && pieceAxeX === 5) {
-            addMovePawn(moveX + 1, moveY + 1, isDiagonal);
-          }
+
           if (pieceAxeY > 1 && isOpponent(moveX + 1, moveY - 1)) {
             isDiagonal = true;
             addMovePawn(moveX + 1, moveY - 1, isDiagonal);
           }
-          if (pieceAxeY > 1 && pieceAxeX === 5) {
-            addMovePawn(moveX + 1, moveY - 1, isDiagonal);
-          }
+
           if (!piece.hasMoved && isEmptySquare(moveX + 1, moveY)) {
             addMovePawn(moveX + 2, moveY, isDiagonal);
           }
@@ -114,14 +106,8 @@ export const calculMovePossible = (pieceList, piece) => {
             addMovePawn(moveX + 1, moveY - 1, isDiagonal);
           }
 
-          if (pieceAxeX < 10 && pieceAxeY === 4) {
-            addMovePawn(moveX + 1, moveY - 1, isDiagonal);
-          }
           if (pieceAxeX > 1 && isOpponent(moveX - 1, moveY - 1)) {
             isDiagonal = true;
-            addMovePawn(moveX - 1, moveY - 1, isDiagonal);
-          }
-          if (pieceAxeX > 1 && pieceAxeY === 4) {
             addMovePawn(moveX - 1, moveY - 1, isDiagonal);
           }
           if (!piece.hasMoved && isEmptySquare(moveX, moveY - 1)) {
@@ -135,17 +121,11 @@ export const calculMovePossible = (pieceList, piece) => {
             isDiagonal = true;
             addMovePawn(moveX - 1, moveY + 1, isDiagonal);
           }
-
-          if (pieceAxeY < 10 && pieceAxeX === 4) {
-            addMovePawn(moveX - 1, moveY + 1, isDiagonal);
-          }
           if (pieceAxeY > 1 && isOpponent(moveX - 1, moveY - 1)) {
             isDiagonal = true;
             addMovePawn(moveX - 1, moveY - 1, isDiagonal);
           }
-          if (pieceAxeY > 1 && pieceAxeX === 4) {
-            addMovePawn(moveX - 1, moveY - 1, isDiagonal);
-          }
+
           if (!piece.hasMoved && isEmptySquare(moveX - 1, moveY)) {
             addMovePawn(moveX - 2, moveY, isDiagonal);
           }

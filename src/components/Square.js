@@ -5,8 +5,8 @@ class Square extends Component {
   render() {
     const {
       refName,
-      data: { squareName, squareColor },
-      game
+      data: { squareName, squareColor, isForbidden },
+      game,
     } = this.props;
 
     const isMovePossible = game.currentMovePossible.includes(squareName)
@@ -16,7 +16,9 @@ class Square extends Component {
     return (
       <div
         ref={refName}
-        className={`square is-${squareColor} ${isMovePossible}`}
+        className={`square is-${squareColor} ${isMovePossible} ${
+          isForbidden ? "is-forbidden" : ""
+        } `}
         data-name={squareName}
       >
         {squareName}
@@ -24,10 +26,10 @@ class Square extends Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     board: state.board,
-    game: state.game
+    game: state.game,
   };
 };
 export default connect(mapStateToProps, null)(Square);

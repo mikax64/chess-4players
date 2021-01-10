@@ -3,11 +3,12 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import "./App.scss";
 import ChessBoard from "./components/ChessBoard";
-import { sendMessage } from "./api";
+import { sendMessage, subscribeTimer } from "./api";
 
 function App() {
   const [time, setTime] = useState(null);
   console.log("RENDER APP");
+  subscribeTimer((err, timestamp) => console.log("timestamp", timestamp));
 
   return (
     <Provider store={store}>
